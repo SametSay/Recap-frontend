@@ -1,0 +1,104 @@
+<div class="content">
+  <div class="col-md-10">
+    <div  *ngFor="let car of cars"  class="card">
+      <div class="card-header"><h5 class="title">{{ car.brandName }} - {{ car.carName }} | Findex Puanı : {{car.findexPuan}}</h5></div>
+      <div class="card-body">
+        <form [formGroup]="rentalAddForm" class="form-group row mb-2">
+          <table class="table table-sm " id="rentalTable" style="padding-top:20px;">
+            <tbody>
+              <tr>
+                <td>Renk</td>
+                <td>{{ car.colorName }}</td>
+              </tr>
+              <tr>
+                <td>Model Yılı</td>
+                <td>{{ car.modelYear }}</td>
+              </tr>
+              <tr>
+                <td>Müşteri Bilgisi</td>
+                <td >
+                  {{firstName}} {{lastName}}
+                </td>
+              </tr>
+              <tr>
+                <td>Şirket Bilgisi</td>
+                <td >
+                  {{companyName}}
+                </td>
+              </tr>
+              <tr>
+                <td>Findex Bilgisi</td>
+                <td >
+                  {{findex}}
+                </td>
+              </tr>
+              <tr>
+                <td>Günlük Ücreti</td>
+                <td>{{ car.dailyPrice | currency: "₺" }}</td>
+              </tr>
+              <tr>
+                <td>Kiralama Ücreti</td>
+                <td>{{  car.dailyPrice | paymentCalculate: rentDate: returnDate |currency: "TRY":"₺"  }}</td>
+              </tr>
+              <tr>
+                <td>Başlangıç Tarihi</td>
+                <td><input
+                  id="rentDate"
+                  formControlName="rentDate"
+                  class="form-control"
+                  min="{{ getRentMinDate() }}"
+                  value="{{rentDate}}"
+                  [(ngModel)]="rentDate"
+                  type="date"
+                /></td>
+              </tr>
+              <tr>
+                <td>Bitiş Tarihi</td>
+                <td><input
+                  id="returnDate"
+                  formControlName="returnDate"
+                  class="form-control"
+                  [(ngModel)]="returnDate"
+                  type="date"
+                  min="{{ getReturnMinDate() }}"
+                  value="{{returnDate}}"
+                /></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="btn-group" role="group" aria-label="Basic example">
+          <button
+              [disabled]="click"
+              type="button"
+              id="rent"
+              class="btn btn-warning btn-block mt-3"
+              (click)="addToCart()"
+              class="btn btn-outline-success"
+              
+            >
+              Kirala
+            </button>
+            <button
+            [disabled]="click"
+            type="button"
+            id="payment"
+            class="btn btn-warning btn-block mt-3"
+            (click)="openModal()"
+            class="btn btn-outline-success"
+            data-bs-toggle="modal" 
+            data-bs-target="#exampleModal"
+            
+          >
+            Kart Bilgileri
+          </button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+

@@ -1,0 +1,46 @@
+<button
+  *ngIf="dataLoaded == false"
+  class="btn btn-primary"
+  type="button"
+  disabled
+>
+  <span
+    class="spinner-grow spinner-grow-sm"
+    role="status"
+    aria-hidden="true"
+  ></span>
+  Yükleniyor...
+</button>
+<div class="mb-3">
+  <input
+    type="text"
+    class="form-control"
+    [(ngModel)]="filterText"
+    id="filterTextColor"
+    placeholder="arama ifadesi giriniz..."
+  />
+
+  <div *ngIf="filterText" class="alert alert-success">
+    {{ filterText }} aradınız.
+  </div>
+</div>
+<ul *ngIf="dataLoaded == true" class="list-group">
+  <li
+    routerLink=""
+    (click)="setCurrentAllColor()"
+    [class]="getAllColorClass()"
+    aria-current="true"
+  >
+    Renkler
+  </li>
+  <li
+    (click)="setCurrentColor(color.colorName)"
+    routerLink="/cars/color/{{color.colorName}}"
+    *ngFor="let color of colors | filterColor: filterText"
+    [class]="getCurrentColorClass(color.colorName)"
+    class="list-group-item d-flex justify-content-between align-items-center"
+  >
+    {{ color.colorName }}
+    <span (click)="update(color)"  type="button" class="badge bg-success rounded-pill">Güncelle</span>
+  </li>
+</ul>

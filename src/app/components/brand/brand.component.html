@@ -1,0 +1,47 @@
+<button
+  *ngIf="dataLoaded == false"
+  class="btn btn-primary"
+  type="button"
+  disabled
+>
+  <span
+    class="spinner-grow spinner-grow-sm"
+    role="status"
+    aria-hidden="true"
+  ></span>
+  Yükleniyor...
+</button>
+
+<div class="mb-3">
+  <input
+    type="text"
+    class="form-control"
+    [(ngModel)]="filterText"
+    id="filterTextBrand"
+    placeholder="arama ifadesi giriniz..."
+  />
+</div>
+    <div *ngIf="filterText" class="alert alert-success">
+    {{ filterText }} aradınız.
+    </div>
+  <ul  *ngIf="dataLoaded == true" class="list-group">
+    <li
+      (click)="setCurrentAllBrand('')"
+      routerLink=""
+      [class]="getAllBrandClass()"
+      aria-current="true"
+    >
+      Modeller
+    </li>
+    <li
+      (click)="setCurrentBrand(brand.brandName)"
+      routerLink="/cars/brand/{{ brand.brandName }}"
+      *ngFor="let brand of brands "
+      [class]="getCurrentBrandClass(brand.brandName)"
+      class="list-group-item d-flex justify-content-between align-items-center"
+    >
+      {{ brand.brandName }} 
+      <span (click)="updateButton(brand)" type="button" class="badge bg-success rounded-pill">Güncelle</span>
+    </li>
+
+  </ul>
